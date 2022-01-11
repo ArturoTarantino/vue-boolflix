@@ -1,13 +1,6 @@
 <template>
   <div id="app">
-    <Header />
-
-    <!-- test  -->
-    <div class="search-bar-test">
-      <input v-model="searchedText" type="text" placeholder="inserisci il titolo del film">
-      <button @click="callAPI" >cerca</button>
-    </div>
-
+    <Header @searchClicked="searchPerformed"/>
     <Main :requestItems="requestItems" />
   </div>
 </template>
@@ -30,9 +23,10 @@ export default {
     };
   },
   methods: {
-    // searchPerformed: function(text) {
-    //   this.searchedText = text;
-    // },
+    searchPerformed: function(text) {
+      this.searchedText = text;
+      this.callAPI();
+    },
     callAPI: function() {
       axios.get('https://api.themoviedb.org/3/search/movie', {
         params: {
@@ -55,22 +49,5 @@ export default {
 #app {
   width: 100%;
   height: 100vh;
-
-  .search-bar-test {
-    text-align: center;
-    background-color: gray;
-    padding-top: 10px;
-
-    input {
-      width: 300px;
-      padding: 5px;
-    }
-
-    button {
-      padding: 5px;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-  }
 }
 </style>

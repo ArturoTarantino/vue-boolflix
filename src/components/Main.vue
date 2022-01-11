@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 main {
     // test 
-    height: calc(100% - 114px);
+    height: calc(100% - 75px);
     overflow-y: auto;
     background-color: gray;
 

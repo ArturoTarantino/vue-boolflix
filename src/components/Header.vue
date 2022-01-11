@@ -5,8 +5,8 @@
                 BOOLFLIX
             </div>
             <div class="search-bar">
-                <!-- <input v-model="searchText" type="text" placeholder="inserisci il titolo">
-                <button @click="$emit('searchClicked', searchText)">Search</button> -->
+                <input v-model="searchText" type="text" placeholder="inserisci il titolo">
+                <button @click="$emit('searchClicked', searchText)">search</button>
             </div>
         </div>
     </header>
@@ -17,7 +17,7 @@ export default {
     name:"Header",
     data: function() {
         return {
-            // searchText: ''
+            searchText: ''
         };
     },
     methods: {
@@ -40,7 +40,20 @@ header {
 
         .logo {
             color: red;
-            font-size: 20px;
+            font-size: 28px;
+        }
+        
+        .search-bar {
+            input {
+                padding: 5px;
+                width: 250px;
+            }
+            button {
+                padding: 5px;
+                margin-left: 5px;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
         }
     }
 }
