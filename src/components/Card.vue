@@ -27,7 +27,9 @@
                 Lingua: <img v-if="movie.original_language === 'en' || movie.original_language === 'it'" :src="require('../assets/' + movie.original_language + '.png')" alt="">
                         <span v-else>{{ movie.original_language }}</span>
             </li>
-            <li>Voto: {{ movie.vote_average }}</li>
+            <li>Voto: <i v-for="n in getIntfrom1to5(movie.vote_average)" :key="n" class="fas fa-star yellow"></i> 
+                    <i v-for="n in (maxStars - getIntfrom1to5(movie.vote_average))" :key="n" class="far fa-star"></i>
+            </li>
         </ul>
         <ul v-else-if="series">
             <li class="cover-box"><img class="cover" :src="imgPath + series.backdrop_path" alt=""></li>
@@ -37,7 +39,9 @@
                 Lingua: <img v-if="series.original_language === 'en' || series.original_language === 'it'" :src="require('../assets/' + series.original_language + '.png')" alt="">
                         <span v-else>{{ series.original_language }}</span>
             </li>
-            <li>Voto: {{ series.vote_average }}</li>
+            <li>Voto: <i v-for="n in getIntfrom1to5(series.vote_average)" :key="n" class="fas fa-star yellow"></i>
+                    <i v-for="n in (maxStars - getIntfrom1to5(series.vote_average))" :key="n" class="far fa-star"></i>
+            </li>
         </ul>
     </div>
 </template>
@@ -53,7 +57,13 @@ export default {
     },
     data: function() {
         return {
-            imgPath: 'https://image.tmdb.org/t/p/w342'
+            imgPath: 'https://image.tmdb.org/t/p/w342',
+            maxStars: 5,
+        }
+    },
+    methods: {
+        getIntfrom1to5: function(number) {
+            return Math.round(number / 2);
         }
     }
 }
@@ -76,6 +86,9 @@ export default {
 
             img {
                 height: 20px;
+            }
+            .yellow {
+                color: rgb(255, 217, 1);
             }
         }
         .cover-box {
