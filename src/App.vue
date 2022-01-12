@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @searchClicked="searchPerformed"/>
-    <Main :requestItems="moviesList" :seriesRequest="seriesList" />
+    <Main :requestItems="moviesList" :seriesRequest="seriesList" :checkLoad="isLoadingApi"/>
   </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
     return {
       searchedText: '',
       moviesList: [],
-      seriesList: []
+      seriesList: [],
+      isLoadingApi: false
     };
   },
   methods: {
@@ -39,6 +40,7 @@ export default {
       .then((response)=> {
         this.moviesList = response.data.results;
       });
+      this.isLoadingApi = true;
     },
     getSeries: function() {
       axios.get('https://api.themoviedb.org/3/search/tv', {

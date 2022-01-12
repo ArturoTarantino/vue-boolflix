@@ -1,13 +1,13 @@
 <template>
     <main>
         <div class="container">
-            <div class="movies">
-                <h2>Movies</h2>
-                <Card :requestItems="requestItems" />
+            <h2 v-if="checkLoad">Movies</h2>
+            <div class="cards-movies">
+                <Card v-for="item, index in requestItems" :key="index" :movie="item" />
             </div>
-            <div class="series">
-                <h2>Series</h2>
-                <Card :seriesRequest="seriesRequest" />
+            <h2 v-if="checkLoad">Series</h2>
+            <div class="cards-series">
+                <Card v-for="item, index in seriesRequest" :key="index" :series="item" />
             </div>
         </div>
     </main>
@@ -23,7 +23,8 @@ export default {
     },
     props: {
         requestItems: Array,
-        seriesRequest: Array
+        seriesRequest: Array,
+        checkLoad: Boolean
     }
 }
 </script>
@@ -34,5 +35,14 @@ main {
     height: calc(100% - 75px);
     overflow-y: auto;
     background-color: gray;
+
+    h2 {
+        margin: 15px 0;
+    }
+    .cards-movies,
+    .cards-series {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 </style>
