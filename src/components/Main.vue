@@ -1,13 +1,13 @@
 <template>
     <main>
         <div class="container">
-            <h2 v-if="checkLoad">Movies</h2>
+            <h2 v-if="moviesList.length > 0">Movies</h2>
             <div class="cards-movies">
-                <Card v-for="movie, index in requestItems" :key="index" :details="movie" />
+                <Card v-for="movie, index in moviesList" :key="index" :details="movie" />
             </div>
-            <h2 v-if="checkLoad">Series</h2>
+            <h2 v-if="seriesList.length > 0">Series</h2>
             <div class="cards-series">
-                <Card v-for="series, index in seriesRequest" :key="index" :details="series" />
+                <Card v-for="series, index in seriesList" :key="index" :details="series" />
             </div>
         </div>
     </main>
@@ -22,8 +22,8 @@ export default {
         Card
     },
     props: {
-        requestItems: Array,
-        seriesRequest: Array,
+        moviesList: Array,
+        seriesList: Array,
         checkLoad: Boolean
     }
 }
@@ -42,7 +42,8 @@ main {
     .cards-movies,
     .cards-series {
         display: flex;
-        flex-wrap: wrap;
+        flex-shrink: 0;
+        overflow-x: auto;
     }
 }
 </style>

@@ -40,7 +40,7 @@ header {
 
         .logo {
             color: red;
-            font-size: 28px;
+            font-size: 38px;
         }
         
         .search-bar {
