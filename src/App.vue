@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @searchClicked="searchPerformed"/>
-    <Main :moviesList="moviesList" :seriesList="seriesList" :checkLoad="isLoadingApi"/>
+    <Main :moviesList="moviesList" :seriesList="seriesList" :popularMovies="popularMovies" :upcomingMovie="upcomingMovie" :checkLoad="isLoadingApi"/>
   </div>
 </template>
 
@@ -18,10 +18,13 @@ export default {
   },
   data: function() {
     return {
+      apiKey: '997df5abb3ca337fd1e2327f4dc80ef4',
       searchedText: '',
       moviesList: [],
       seriesList: [],
-      isLoadingApi: false
+      popularMovies: [],
+      upcomingMovie: [],
+      isLoadingApi: true
     };
   },
   methods: {
@@ -29,30 +32,53 @@ export default {
       this.searchedText = text;
       this.getMovies();
       this.getSeries();
+      this.isLoadingApi = false;
     },
     getMovies: function() {
       axios.get('https://api.themoviedb.org/3/search/movie', {
         params: {
-          api_key: '997df5abb3ca337fd1e2327f4dc80ef4',
-          query: this.searchedText
+          api_key: this.apiKey,
+          query: this.searchedText,
+          language: 'it-IT'
         }
       })
       .then((response)=> {
         this.moviesList = response.data.results;
       });
-      this.isLoadingApi = true;
     },
     getSeries: function() {
       axios.get('https://api.themoviedb.org/3/search/tv', {
         params: {
-          api_key: '997df5abb3ca337fd1e2327f4dc80ef4',
-          query: this.searchedText
+          api_key: this.apiKey,
+          query: this.searchedText,
+          language: 'it-IT'
         }
       })
       .then((response)=> {
         this.seriesList = response.data.results;
       });
     }
+  },
+  created: function() {
+    axios.get('https://api.themoviedb.org/3/movie/popular', {
+      params: {
+          api_key: this.apiKey,
+          language: 'it-IT'
+      }
+    })
+    .then((response)=>{
+      this.popularMovies = response.data.results;
+    });
+
+    axios.get('https://api.themoviedb.org/3/movie/upcoming', {
+      params: {
+          api_key: this.apiKey,
+          language: 'it-IT'
+      }
+    })
+    .then((response)=>{
+      this.upcomingMovie = response.data.results;
+    });
   }
 };
 </script>

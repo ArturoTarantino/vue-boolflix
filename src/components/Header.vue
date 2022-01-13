@@ -27,8 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-    // test 
+header { 
     height: 75px;
     background-color: black;
 
@@ -47,7 +46,12 @@ header {
             input {
                 padding: 5px;
                 width: 250px;
+                &::placeholder {
+                    font-style: oblique;
+                    font-size: 15px;
+                }
             }
+            
             button {
                 padding: 5px;
                 margin-left: 5px;
