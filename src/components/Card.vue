@@ -1,46 +1,15 @@
 <template>
     <div class="card">
-        <!-- <ul v-for="item, index in requestItems" :key="index">
-            <li>Titolo: {{ item.title }}</li>
-            <li>Titolo Originale: {{ item.original_title }}</li>
+        <ul>
+            <li class="cover-box"><img v-if="details.backdrop_path !== null" class="cover" :src="imgPath + details.backdrop_path" alt=""></li>
+            <li>Titolo: {{ details.title ? details.title : details.name }}</li>
+            <li>Titolo Originale: {{ details.original_title ? details.original_title : details.original_name }}</li>
             <li>
-                Lingua: <img v-if="item.original_language === 'en' || item.original_language === 'it'" :src="require('../assets/' + item.original_language + '.png')" alt="">
-                        <span v-else>{{ item.original_language }}</span>
+                Lingua: <img v-if="avaibleFlags.includes(details.original_language)" :src="require('../assets/' + details.original_language + '.png')" alt="">
+                        <span v-else>{{ details.original_language }}</span>
             </li>
-            <li>Voto: {{ item.vote_average }}</li>
-        </ul>
-
-        <ul v-for="item, index in seriesRequest" :key="index">
-            <li>Titolo: {{ item.name }}</li>
-            <li>Titolo Originale: {{ item.original_name }}</li>
-            <li>
-                Lingua: <img v-if="item.original_language === 'en' || item.original_language === 'it'" :src="require('../assets/' + item.original_language + '.png')" alt="">
-                        <span v-else>{{ item.original_language }}</span>
-            </li>
-            <li>Voto: {{ item.vote_average }}</li>
-        </ul> -->
-        <ul v-if="movie">
-            <li class="cover-box"><img v-if="movie.backdrop_path !== null" class="cover" :src="imgPath + movie.backdrop_path" alt=""></li>
-            <li>Titolo: {{ movie.title }}</li>
-            <li>Titolo Originale: {{ movie.original_title }}</li>
-            <li>
-                Lingua: <img v-if="movie.original_language === 'en' || movie.original_language === 'it'" :src="require('../assets/' + movie.original_language + '.png')" alt="">
-                        <span v-else>{{ movie.original_language }}</span>
-            </li>
-            <li>Voto: <span><i v-for="n in getIntfrom1to5(movie.vote_average)" :key="n" class="fas fa-star yellow"></i></span> 
-                    <span><i v-for="n in (maxStars - getIntfrom1to5(movie.vote_average))" :key="n" class="far fa-star"></i></span>
-            </li>
-        </ul>
-        <ul v-else-if="series">
-            <li class="cover-box"><img v-if="series.backdrop_path !== null" class="cover" :src="imgPath + series.backdrop_path" alt=""></li>
-            <li>Titolo: {{ series.name }}</li>
-            <li>Titolo Originale: {{ series.original_name }}</li>
-            <li>
-                Lingua: <img v-if="series.original_language === 'en' || series.original_language === 'it'" :src="require('../assets/' + series.original_language + '.png')" alt="">
-                        <span v-else>{{ series.original_language }}</span>
-            </li>
-            <li>Voto: <span><i v-for="n in getIntfrom1to5(series.vote_average)" :key="n" class="fas fa-star yellow"></i></span>
-                    <span><i v-for="n in (maxStars - getIntfrom1to5(series.vote_average))" :key="n" class="far fa-star"></i></span>
+            <li>Voto: <span><i v-for="n in getIntfrom1to5(details.vote_average)" :key="n" class="fas fa-star yellow"></i></span> 
+                    <span><i v-for="n in (maxStars - getIntfrom1to5(details.vote_average))" :key="n" class="far fa-star"></i></span>
             </li>
         </ul>
     </div>
@@ -50,15 +19,13 @@
 export default {
     name: "Card",
     props: {
-        // requestItems: Array,
-        // seriesRequest: Array
-        movie: Object,
-        series: Object
+        details: Object
     },
     data: function() {
         return {
             imgPath: 'https://image.tmdb.org/t/p/w342',
             maxStars: 5,
+            avaibleFlags: ['it', 'en']
         }
     },
     methods: {

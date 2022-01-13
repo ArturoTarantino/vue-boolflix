@@ -3,11 +3,11 @@
         <div class="container">
             <h2 v-if="checkLoad">Movies</h2>
             <div class="cards-movies">
-                <Card v-for="item, index in requestItems" :key="index" :movie="item" />
+                <Card v-for="movie, index in requestItems" :key="index" :details="movie" />
             </div>
             <h2 v-if="checkLoad">Series</h2>
             <div class="cards-series">
-                <Card v-for="item, index in seriesRequest" :key="index" :series="item" />
+                <Card v-for="series, index in seriesRequest" :key="index" :details="series" />
             </div>
         </div>
     </main>
